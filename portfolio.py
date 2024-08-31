@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 
 st.set_page_config(page_title="My Portfolio with Media", layout="wide", initial_sidebar_state="expanded")
 
@@ -80,6 +81,10 @@ st.sidebar.title("About Me")
 pages = ["Home", "Autobiography", "Portfolio", "Media Gallery", "Contact"]
 page = st.sidebar.radio("Go to", pages)
 
+# Define relative paths for images
+def get_image_path(filename):
+    return os.path.join("images", filename)
+
 if page == "Home":
     st.title("Hello, Welcome!")
     st.write("""
@@ -87,7 +92,7 @@ if page == "Home":
         Explore my journey, skills, and projects through this interactive portfolio.
         Use the sidebar to navigate.
     """)
-    st.image("C:/Users/julianne/OneDrive/Documents/school files/CSIT342/Basic Streamlit App/home.jpg", caption="My Portfolio Header", use_column_width=True) 
+    st.image(get_image_path("home.jpg"), caption="My Portfolio Header", use_column_width=True) 
 
 elif page == "Autobiography":
     st.title("Autobiography")
@@ -112,7 +117,7 @@ elif page == "Autobiography":
         """)
     
     with col2:
-        st.image("C:/Users/julianne/OneDrive/Documents/school files/CSIT342/Basic Streamlit App/me.jpg", caption="That's me!", use_column_width=True)
+        st.image(get_image_path("me.jpg"), caption="That's me!", use_column_width=True)
 
 elif page == "Portfolio":
     st.title("My Portfolio")
@@ -127,7 +132,7 @@ elif page == "Portfolio":
     for project, description in projects.items():
         with st.expander(project):
             st.write(description)
-            st.image(f"C:/Users/julianne/OneDrive/Documents/school files/CSIT342/Basic Streamlit App/{project.lower().replace(' ', '_').replace(':', '').replace('-', '')}.jpg", caption=project, use_column_width=True)
+            st.image(get_image_path(f"{project.lower().replace(' ', '_').replace(':', '').replace('-', '')}.jpg"), caption=project, use_column_width=True)
 
     st.write("You can find more of my work and contributions on my GitHub profile: [Julianne Aban on GitHub](https://github.com/julianneaban)")
 
@@ -142,9 +147,9 @@ elif page == "Media Gallery":
 
     st.subheader("Project Images")
     st.image([
-        "C:/Users/julianne/OneDrive/Documents/school files/CSIT342/Basic Streamlit App/car_classifier_ai.jpg", 
-        "C:/Users/julianne/OneDrive/Documents/school files/CSIT342/Basic Streamlit App/deliveryey_ordering_system_website.jpg", 
-        "C:/Users/julianne/OneDrive/Documents/school files/CSIT342/Basic Streamlit App/greenswap_buy_and_sell_application.jpg"
+        get_image_path("car_classifier_ai.jpg"), 
+        get_image_path("deliveryey_ordering_system_website.jpg"), 
+        get_image_path("greenswap_buy_and_sell_application.jpg")
     ], caption=["Car Classifier AI", "DeliverYey: Ordering System Website", "GreenSwap: Buy and Sell Application"], use_column_width=True)
 
 elif page == "Contact":
